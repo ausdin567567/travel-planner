@@ -82,6 +82,11 @@ export default async function TripsPage() {
 
                                     <CardContent>
                                         <p className="text-sm line-clamp-2 mb-2">{trip.description}</p>
+                                        <div className="text-sm">
+                                            {" "}
+                                            {new Date(trip.startDate).toLocaleDateString()} - {" "}
+                                            {new Date(trip.endDate).toLocaleDateString()}
+                                            </div>
                                     </CardContent>
                                 </Card>
                             </Link>
