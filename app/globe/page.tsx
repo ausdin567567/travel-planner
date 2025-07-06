@@ -1,5 +1,6 @@
 "use client"
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { MapPin } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import Globe, {GlobeMethods} from 'react-globe.gl'
 
@@ -15,6 +16,7 @@ export default function GlobePage(){
 
     const [visitedCountries, setVisitedCountries] = useState<Set<string>>(new Set())
 
+    const [locations, setLocations] = useState<TransformedLocation[]>([]);
     const[isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -22,6 +24,7 @@ export default function GlobePage(){
             try{
                 const response = await fetch("/api/trips")
                 const data = await response.json()
+                setLocations(data)
 
                 const countries = new Set<string>(data.map((loc: TransformedLocation) => loc.country));
 
@@ -69,6 +72,7 @@ export default function GlobePage(){
                                 backgroundColor="rgba(0,0,0,0)"
                                 pointColor={() => "#FF5733"}
                                 pointLabel="name"
+                                pointsData={locations}
                                 pointRadius={0.5}
                                 pointAltitude={0.1}
                                 pointsMerge={true}
@@ -96,7 +100,18 @@ export default function GlobePage(){
                                 ) : (
                                     <div className='space-y-4'>
                                         <div className='bg-blue-50 p-4 rounded-lg'>
-                                            <p className='text-sm text-blue-800'>You've visited <span className='font-bold'>{visitedCountries.size}</span></p>
+                                            <p className='text-sm text-blue-800'>You've visited <span className='font-bold'>{visitedCountries.size}</span>{" "}
+                                            countries.
+                                            </p>
+                                        </div>
+
+                                        <div className='space-y-2 max-h-[500px] overflow-y-auto pr-2'>
+                                            {Array.from(visitedCountries).sort().map((country, key) => (
+                                                <div key={key} className='flex items-center gap-2 p-3 rounded-lg hover: bg-gray-50 transition-colors border border-gray-100'>
+                                                    <MapPin className='h-4 w-4 text-red-500'/>
+                                                    <span className='font-medium'>{country}</span>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                             )}
