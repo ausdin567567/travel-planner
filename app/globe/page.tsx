@@ -1,8 +1,14 @@
 "use client"
+
+import dynamic from "next/dynamic"
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import Globe, {GlobeMethods} from 'react-globe.gl'
+import { GlobeMethods } from "react-globe.gl";
+
+const Globe = dynamic(() => import("react-globe.gl"), {
+  ssr: false,
+});
 
 export interface TransformedLocation{
     lat: number;
@@ -61,7 +67,7 @@ export default function GlobePage(){
                             <div className="h-[600px] w-full relative">
                                 {isLoading? (
                                     <div className='flex items-center justify-center h-full'>
-                                        <div className='animate-spin rounded-full h-12 w-12 border b-2 border-gray-900'>
+                                        <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900'>
 
                                         </div>
                                     </div>
@@ -85,7 +91,7 @@ export default function GlobePage(){
                     </div>
 
 
-                    <div className='lg-col-span-1'>
+                    <div className='lg:col-span-1'>
                         <Card className="sticky top-8">
                             <CardHeader>
                                 <CardTitle>Countries Visited</CardTitle>
@@ -107,7 +113,7 @@ export default function GlobePage(){
 
                                         <div className='space-y-2 max-h-[500px] overflow-y-auto pr-2'>
                                             {Array.from(visitedCountries).sort().map((country, key) => (
-                                                <div key={key} className='flex items-center gap-2 p-3 rounded-lg hover: bg-gray-50 transition-colors border border-gray-100'>
+                                                <div key={key} className='flex items-center gap-2 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-gray-100'>
                                                     <MapPin className='h-4 w-4 text-red-500'/>
                                                     <span className='font-medium'>{country}</span>
                                                 </div>

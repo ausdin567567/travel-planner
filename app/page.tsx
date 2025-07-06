@@ -122,8 +122,7 @@ export default async function LandingPage() {
               Ready to plan your next adventure?
             </h2>
             <p className="text-xl text-blue-50 mb-8 max-w-2xl mx-auto">
-              Join thousands of travelers who plan better trips with
-              TripPlanner.
+              Join thousands of travelers who plan better trips with Itinera.
             </p>
             <AuthButton
               isLoggedIn={isLoggedIn}
