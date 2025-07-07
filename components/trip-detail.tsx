@@ -10,6 +10,7 @@ import { useState } from "react";
 import { TabsContent } from "@radix-ui/react-tabs";
 import Map from "@/components/map"
 import SortableItinerary from "./sortable-itinerary";
+import { Trip, Location } from "@prisma/client";
 
 export type TripWithLocation = Trip & {
     locations: Location[];
