@@ -16,7 +16,7 @@ export type TripWithLocation = Trip & {
 }
 
 interface TripDetailClientProps {
-    trip: Trip;
+    trip: TripWithLocation;
 }
 
 
